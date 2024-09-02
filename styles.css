@@ -1,0 +1,272 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: monospace;
+}
+
+:root{
+    --light_blue: #0362df;
+    --fade_blue: #265683;
+    --grey : #888888;
+    --backgound: #0D0C11;
+    --light_stroke: #555555;
+    --light_grey:#dadada;
+}
+
+body{
+    background-color: var(--backgound);
+    padding: 20px;
+}
+
+.heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--grey);
+    height: fit-content;
+}
+
+.heading h1{
+    font-size: 30px;
+}
+
+h2{
+    text-align: center;
+    color:var(--fade_blue);
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+
+table{
+    border-collapse: collapse;
+    position: relative;
+    width: 100%;
+    color: var(--grey);
+}
+.title_row{
+    height: 50px;
+    color: var(--light_blue);
+    border-bottom: 0.5px solid var(--grey);
+    font-size: 12px;
+}
+
+.title_row th{
+    padding: 0 10px;
+    text-align: start;
+}
+
+td{
+    font-size: 12px;
+    padding: 10px;
+    
+}
+
+button{
+    background-color: var(--fade_blue);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--light_grey);
+    font-size: 12px;
+}
+
+.edit{
+    text-align: center;
+    display: block;
+    padding: 10px;
+    background-color: var(--fade_blue);
+    border-radius: 5px;
+    font-size: 10px ;
+    color: var(--light_grey);
+}
+
+.bg{
+    background-color: black;
+}
+
+/* UI FOR ADD*/
+
+span{
+    color: red;
+    text-align: end;
+}
+
+.label_input{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.basic_info_holder{
+    display: grid;
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #535353;
+    padding: 20px;
+    height: fit-content;
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    grid-template-rows: auto;
+    column-gap: 70px;
+    row-gap: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px 1px rgba(77, 76, 76, 0.25);
+    margin-bottom: 20px;
+    min-width: 280px;
+}
+
+.basic_info_holder2{
+    display: grid; 
+    max-width: 100%;
+    min-height: 160px;
+    border: 1px solid #535353;
+    padding: 20px;
+    height: fit-content;
+    grid-template-columns: repeat(1, minmax(200px, 1fr));
+    grid-template-rows: auto;
+    gap: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px 1px rgba(77, 76, 76, 0.25);
+    margin-bottom: 20px;
+    min-width: 280px;
+}
+
+.basic_info_holder3{
+    display: grid;
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #535353;
+    padding: 20px;
+    height: fit-content;
+    grid-template-columns: repeat(1, minmax(200px, 1fr));
+    grid-template-rows: auto;
+    column-gap: 70px;
+    row-gap: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 3px 1px rgba(77, 76, 76, 0.25);
+    margin-bottom: 20px;
+    min-width: 280px;
+}
+
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.flex2{
+    display: flex;
+    padding-top: 5px;
+    padding: 5px 5px 0 5px;
+    gap: 10px;
+}
+
+.add_section h4{
+    color: var(--light_blue);
+    font-size: 15px;
+}
+
+label{
+    color: var(--grey);
+}
+
+
+input, select,textarea{
+    padding: 1ch;
+    border-radius: 10px;
+    background-color: #262626;
+    color: #FFF;
+    border: 1px solid #7B7B7B;
+}
+
+.grey{
+    color: var(--grey);
+}
+
+input[type=range]{
+    max-width: 50%;
+    padding: 0;
+
+}
+
+textarea{
+    width: 100%;
+    min-height: 100px;
+}
+textarea::placeholder{
+    color: var(--grey);
+}
+
+.star_holder{
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.star{
+    height: 10px;
+    width: 10px;
+
+}
+
+.star img{
+    width: 100%;
+}
+
+.groupo{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.all_group{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+input[type=submit]{
+    width: 280px;
+    background-color: rgb(0, 61, 0);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+input[type=submit]:hover{
+    transform: scale(1.1);
+}
+
+
+.submit{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+@media only screen and (max-width:768px){
+    .basic_info_holder{
+        grid-template-columns: repeat(1, minmax(200px, 1fr));
+    }
+    .basic_info_holder2{
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .all_group{
+        flex-direction: column;
+    }
+
+    .groupo{
+        width: 100%;
+    }
+}

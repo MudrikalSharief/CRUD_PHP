@@ -1,0 +1,178 @@
+<?php
+
+    //Include the database.php so that we can access the class we make
+    require_once "database.php";
+    //this class will  will handle the operation in products
+
+        class Book{
+
+            public $id = "";
+            public $barcode = "";
+            public $title = "";
+            public $author="";
+            public $genre ="";
+            public $publisher="";
+            public $publication_date="";
+            public $edition="";
+            public $copies="";
+            public $format="";
+            public $age_group="";
+            public $rating="";
+            public $description="";
+
+            protected $db;
+
+            //this is a constructor every time an instance is created the code inside is called
+            function __construct(){
+                $this->db = new Database(); // instanciate a class Database
+            }
+
+            //this function will add a new product to the database
+            function add(){
+                //add a sql query to add in database
+                $addquery = "INSERT INTO books (barcode,book_title,  book_author,  book_genre, book_publisher, publication_date, 
+                                    book_edition,  book_copies, book_format, age_group, book_rating, book_description) 
+                                    VALUES (:barcode,:title, :author, :genre, :publisher, :publication_date, :edition, :copies, :format, :age_group, :rating, :description);";
+
+                //prepare the addquery to execution
+                $prepquery = $this->db->connect()->prepare($addquery);
+
+                //after preparing the query its time to add value in placeholder using bindparam
+                $prepquery->bindParam(':barcode',$this->barcode);//first parameter is the placeholder, second parameter is where  get the value to pass on placeholder
+                $prepquery->bindParam(':title',$this->title);
+                $prepquery->bindParam(':author',$this->author);
+                $prepquery->bindParam(':genre',$this->genre);
+                $prepquery->bindParam(':publisher',$this->publisher);
+                $prepquery->bindParam(':publication_date',$this->publication_date);
+                $prepquery->bindParam(':edition',$this->edition);
+                $prepquery->bindParam(':copies',$this->copies);
+                $prepquery->bindParam(':format',$this->format);
+                $prepquery->bindParam(':age_group',$this->age_group);
+                $prepquery->bindParam(':rating',$this->rating);
+                $prepquery->bindParam(':description',$this->description);
+
+
+                //after binding the value execute the query
+                if($prepquery->execute()){
+                        return true;//return true if the execution is succesfull
+                }else{
+                        return false;       
+                }
+
+            }
+
+            
+            function update($book_id){//this function will handle the updating
+                $edit_query = "UPDATE books SET barcode=:barcode,book_title= :title, book_author= :author,
+                                        book_genre=:genre, book_publisher=:publisher, publication_date=:pub_date, book_edition=:edition,
+                                        book_copies=:copies, book_format=:format, age_group=:group, book_rating=:rating,
+                                         book_description=:description
+                                        WHERE book_id=:id" ;
+                
+                $prepquery = $this->db->connect()->prepare($edit_query);
+
+                //after preparing the query its time to add value in placeholder using bindparam
+                
+                $prepquery->bindParam(':id',$book_id);//important to use the id 
+                $prepquery->bindParam(':barcode',$this->barcode);
+                $prepquery->bindParam(':title',$this->title);
+                $prepquery->bindParam(':author',$this->author);
+                $prepquery->bindParam(':genre',$this->genre);
+                $prepquery->bindParam(':publisher',$this->publisher);
+                $prepquery->bindParam(':pub_date',$this->publication_date);
+                $prepquery->bindParam(':edition',$this->edition);
+                $prepquery->bindParam(':copies',$this->copies);
+                $prepquery->bindParam(':format',$this->format);
+                $prepquery->bindParam(':group',$this->age_group);
+                $prepquery->bindParam(':rating',$this->rating);
+                $prepquery->bindParam(':description',$this->description);
+
+                if($prepquery->execute()){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+            }
+
+           
+
+        function get_all_coloumn(){//this function will fetch all the coloumn
+                //Write a query
+                $choose = "SELECT * FROM books ORDER BY book_title ASC;";
+
+                //prepare the sql 
+                $query = $this->db->connect()->prepare($choose);
+                
+                //if the query is executed
+                if($query->execute()){
+                        $data = $query->fetchAll();//assign the fetch data to $data
+                        return $data? $data : [];//if $data is not empty return data else return empty array[]
+                }
+
+                return [];//if not executed return empty string
+        }
+
+        
+
+        function get_row($book_id){//This function will return a specific row based on the id
+            $query = "SELECT * FROM books WHERE book_id=:id";
+            $prep_query = $this->db->connect()->prepare($query);
+
+            $prep_query->bindParam(':id',$book_id);
+
+            if($prep_query->execute()){
+                
+                $data=$prep_query->fetch();
+
+                return $data? $data : [];
+            }
+            return[];
+
+        }
+
+
+        function not_my_barcode($id, $barcode){//this function return true if the barcode is not the same in its own barcode
+            $query = "SELECT barcode FROM books WHERE book_id=:id";
+            $prep_query = $this->db->connect()->prepare($query);
+
+            $prep_query->bindParam(':id',$id);
+
+            if($prep_query->execute()){
+                $data=$prep_query->fetch();
+                
+                if($data['barcode'] != $barcode ){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        
+        function is_barcode_unique($barcode){//This function return true if it has  duplicate
+            $query = "SELECT barcode FROM books WHERE barcode=:barcode";
+            $prep_query = $this->db->connect()->prepare($query);
+
+            $prep_query->bindParam(':barcode',$barcode);
+
+            if($prep_query->execute()){
+                
+                $data=$prep_query->fetch();// fetching the array
+                if($data)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+    }   
+        $obj = new Book();
+     //   echo $obj->is_barcode_unique(1);
+      //  echo $obj->not_my_barcode(25,2);
+        //var_dump($obj-> get_all(18));
+        //$array = $obj->get_all(18);
+        //echo $array['book_title'];
+        
+        

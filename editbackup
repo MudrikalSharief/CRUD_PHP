@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        
+        <h1>Edit Book</h1>
+        <form action="" method="POST">
+    
+            <div class="big_div">
+                <div class="smol_div">
+                
+                <div class="big_div"><label for="title">Book Title</label><span class="error"><?= $titleErr ?></span></div>
+                <input type="text" name="title" id="title"  placeholder="Enter Book Title" value="<?= $data['book_title'] ?>">
+                </div>
+
+                <div class="smol_div">
+                <div class="big_div"><label for="author">Author's Name</label><span class="error"><?= $authorErr?></span></div>
+                <input type="text" name="author" id="author" placeholder="Enter Author's Name" value="<?= $data['book_author'] ?>" >
+                </div>
+
+                <div class="smol_div">
+                <div class="big_div"><label for="genre">Genre</label><span class="error"><?= $genreErr ?></span></div>
+                <select name="genre" id="genre">
+                    <option value="">--Genre--</option>
+                    <option value="romance" <?= (isset($data['book_genre']) && $data['book_genre'] == "romance")? "selected = true" : "" ?>>Romance</option>
+                    <option value="action" <?= (isset($data['book_genre']) && $data['book_genre'] == "action")? "selected= true" : "" ?>>Action</option>
+                    <option value="horror" <?= (isset($data['book_genre']) && $data['book_genre'] == "horror")? "selected= true" : "" ?>>Horror</option>
+                    <option value="mystery" <?= (isset($data['book_genre']) && $data['book_genre'] == "mystery")? "selected= true" : "" ?>>Mystery</option>
+               </select>
+               </div>
+            </div>
+
+            <h4>Publication Details</h4>
+            <div class="big_div">
+                <div class="smol_div">
+                    <div class="big_div"><label for="publisher">Publisher</label><span class="error"><?= $publisherErr ?></span> </div>
+                    <input type="text" name="publisher" id="publisher" placeholder="Enter Publiser Company" value="<?= $data['book_publisher']?>">          
+                </div>
+                <div class="smol_div">
+                    <div class="big_div"><label for="date">Publication Date</label><span class="error" ><?= $date_publishErr ?></span></div>
+                    <input type="date" name="date" id="date" value=<?= $data['publication_date'] ?>>
+                </div>
+                
+                <div class="smol_div">
+                    <div class="big_div"><label for="edition">Edition</label><span class="error" ><?= $editionErr ?></span></div>
+                    <input type="number" name="edition" id="edition" placeholder="Enter Edition number" value=<?= $data['book_edition'] ?>>
+                </div>
+            </div>
+
+            <h4>Availability</h4>
+            <div class="big_div">
+                <div class="smol_div">
+                <div class="big_div"><label for="copies">Number of Copies</label><span class="error"><?= $copiesErr ?></span></div>
+                <input type="number" name="copies" id="copies" placeholder="Enter number of Copies" value=<?=$data['book_copies'] ?>>
+                </div>
+                
+                <div class="smol_div">
+                <div class="big_div"><label for="format">Format</label><span class="error"><?= $formatErr ?></span></div>
+                <div class="mini_div al">
+                <div class="mini_div">
+                <input type="radio" name="format" value="Hardbound" id="hardbound"  <?= (isset($data['book_format']) && $data['book_format'] == "Hardbound")? "checked" : "" ?>>
+                <label for="hardbound">Hardbound</label>
+                </div>
+                <div class="mini_div el">
+                <input type="radio" name="format" value="Softbound" id="softbound" <?= (isset($data['book_format']) && $data['book_format']== "Softbound")? "checked" : "" ?>>
+                <label for="softbound">Softbound</label>
+                </div>
+                </div>
+                
+                </div>
+
+                <div class="smol_div">
+                    <div class="big_div"><label for="barcode">Barcode</label><span class="error"><?= $barcodeErr?></span></div>
+                    <input type="text" name="barcode" id="barcode" placeholder="Enter Barcode" value="<?= $data['barcode']?>">
+                </div>
+            </div>
+            
+            <h4>Target Audience</h4>
+            <div class="big_div">
+                <div class="smol_div">
+                    <div class="big_div"><label for="agegroup">Age Group</label><span class="error"><?= $age_groupErr ?></span></div>
+                    <div class="div mini_div">
+                        <div class="mini_div">
+                            <input type="checkbox" name="agegroup[]" value="Kids" id="kids" <?= in_array("Kids", explode(",",$data['age_group'])) ? "checked" : "" ?>>           
+                            <label for="kids">Kids</label>
+                        </div> 
+                        <div class="mini_div">
+                            <input type="checkbox" name="agegroup[]" value="Teens" id="teens" <?= in_array("Teens", explode(",",$data['age_group'])) ? "checked" : "" ?>>
+                            <label for="teens">Teens</label>
+                        </div>
+                        <div class="mini_div">
+                            <input type="checkbox" name="agegroup[]" value="Adult" id="adult" <?= in_array("Adult", explode(",",$data['age_group'])) ? "checked" : "" ?>>
+                            <label for="Adult">Adult</label>
+                        </div>
+                    </div>
+                        
+                </div>
+
+                <div class="smol_div">
+                    <label for="rating">Book Rating</label>
+                    <input type="range" name="rating" id="rating" min="1" max="5" value="<?= $data['book_rating']?>">
+                    <div class="star_holder">
+                        <div class="star"><img src="star.png" alt=""></div>
+                        <div class="star"><img src="star.png" alt=""></div>
+                        <div class="star"><img src="star.png" alt=""></div>
+                        <div class="star"><img src="star.png" alt=""></div>
+                        <div class="star"><img src="star.png" alt=""></div>
+                    </div>
+                    <span class="error"><?= $ratingErr ?></span>
+                </div>
+
+                <div class="smol_div"></div>
+            </div>
+                
+            <h4>Additional Information</h4>
+            <div class="big_div">
+                <div class="smoll">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" rows="3" cols="100" placeholder="Describe this book (optional)" value="<textarea name="description" id="description" rows="3" cols="100" placeholder="Describe this book (optional)" value="<?= $data['book_description'] ?>"><?= $data['book_description'] ?></textarea>
+                </div>
+            </div>
+
+            <div class="center">
+                <input type="submit" id="submit" value="Update Book" class="submit">
+            </div>
+
+        </form>
+        <a href="showbook.php"><button>View Book</button></a>
+
+</body>
+</html>
+
+
+-->
