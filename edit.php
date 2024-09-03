@@ -50,7 +50,7 @@
         }
 
         
-        if($bookOBJ->not_my_barcode($_GET['id'], $barcode) && $bookOBJ->is_barcode_unique($barcode)){//check if the book is not his own barcode, and the barcode is unique
+        if($bookOBJ->not_my_barcode($_GET['id'], $barcode) ){//check if the book is not his own barcode, and the barcode is unique
             $barcodeErr="Barcode $barcode is existing";
         }
 

@@ -142,7 +142,7 @@
             if($prep_query->execute()){
                 $data=$prep_query->fetch();
                 
-                if($data['barcode'] != $barcode ){
+                if($data['barcode'] != $barcode  && $this->is_barcode_unique($barcode)){
                     return true;
                 }
                 else{
