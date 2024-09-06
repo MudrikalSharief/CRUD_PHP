@@ -117,7 +117,7 @@
                     $bookOBJ->rating = $rating;
                     $bookOBJ->description = $description;
 
-                    if($bookOBJ->update($id)){
+                    if($bookOBJ->update($id)){  
                         header('location: showbook.php');
                         exit("The update is complete");
                     }else{
@@ -239,13 +239,13 @@
                                     </div> 
 
                                     <div class="flex2">
-                                        <input type="checkbox" name="agegroup[]" value="Teens" id="kids" <?= in_array("Teens", explode(",",$data['age_group'])) ? "checked" : "" ?>>           
-                                        <label for="kids">Kids</label>
+                                        <input type="checkbox" name="agegroup[]" value="Teens" id="Teens" <?= in_array("Teens", explode(",",$data['age_group'])) ? "checked" : "" ?>>           
+                                        <label for="kids">Teens</label>
                                     </div>
 
                                     <div class="flex2">
-                                        <input type="checkbox" name="agegroup[]" value="Adults" id="kids" <?= in_array("Adults", explode(",",$data['age_group'])) ? "checked" : "" ?>>           
-                                        <label for="kids">Kids</label>
+                                        <input type="checkbox" name="agegroup[]" value="Adults" id="Adults" <?= in_array("Adults", explode(",",$data['age_group'])) ? "checked" : "" ?>>           
+                                        <label for="kids">Adults</label>
                                     </div>
                             </div>
                         </div>
@@ -285,22 +285,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-<!-- 
-
-<?php
-    require_once("functions.php");
-    require_once("book.class.php");
-
-    
-  
-
-?>

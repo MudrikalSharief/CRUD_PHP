@@ -98,14 +98,30 @@
 
            
 
-        function get_all_coloumn(){//this function will fetch all the coloumn
+        function get_all_coloumn($keyword='', $genre='',$format='', $age_group=""){//this function will fetch all the coloumn
                 //Write a query
-                $choose = "SELECT * FROM books ORDER BY book_title ASC;";
+                $array = (isset($age_group)?explode(',',$age_group) : []);
+                $array[0]=(isset($array[0])? $array[0] : "");
+                $array[1]=(isset($array[1])? $array[1] : "");
+                $array[2]=(isset($array[2])? $array[2] : "");
+
+                $choose = "SELECT * FROM books  WHERE  status = 1
+                                AND (book_title LIKE '%' :keyword '%' OR  book_author LIKE '%' :keyword '%' OR  book_genre LIKE '%' :keyword '%' OR book_publisher LIKE '%' :keyword '%' OR book_format LIKE '%' :keyword '%' OR age_group LIKE '%' :keyword '%' OR book_description LIKE '%' :keyword '%')  
+                                AND  (book_genre LIKE '%' :genre '%')
+                                AND  (book_format LIKE '%' :format '%')
+                                AND (age_group LIKE '%' :arr1 '%' :arr2 '%' :arr3 '%')
+                                ORDER BY  book_title ASC;";
 
                 //prepare the sql 
                 $query = $this->db->connect()->prepare($choose);
-                
+                $query->bindParam(':keyword',$keyword);
+                $query->bindParam(':genre',$genre);
+                $query->bindParam(':format',$format);
+                $query->bindParam(':arr1',$array[0]);
+                $query->bindParam(':arr2',$array[1]);
+                $query->bindParam(':arr3',$array[2]);
                 //if the query is executed
+                $data=null;
                 if($query->execute()){
                         $data = $query->fetchAll();//assign the fetch data to $data
                         return $data? $data : [];//if $data is not empty return data else return empty array[]
@@ -115,9 +131,15 @@
         }
 
         
+        function delete($id){
+            $query = "UPDATE books SET status=0 WHERE status = 1 AND book_id=:id ;";
+            $prep_query = $this->db->connect()->prepare($query);
+            $prep_query->bindParam(':id',$id);
+            return $prep_query->execute();
+        }
 
         function get_row($book_id){//This function will return a specific row based on the id
-            $query = "SELECT * FROM books WHERE book_id=:id";
+            $query = "SELECT * FROM books WHERE status = 1 AND book_id=:id;";
             $prep_query = $this->db->connect()->prepare($query);
 
             $prep_query->bindParam(':id',$book_id);
@@ -134,7 +156,7 @@
 
 
         function not_my_barcode($id, $barcode){//this function return true if the barcode is not the same in its own barcode
-            $query = "SELECT barcode FROM books WHERE book_id=:id";
+            $query = "SELECT barcode FROM books WHERE status = 1 AND book_id=:id;";
             $prep_query = $this->db->connect()->prepare($query);
 
             $prep_query->bindParam(':id',$id);
@@ -152,7 +174,7 @@
         }
         
         function is_barcode_unique($barcode){//This function return true if it has  duplicate
-            $query = "SELECT barcode FROM books WHERE barcode=:barcode";
+            $query = "SELECT barcode FROM books WHERE status = 1 AND barcode=:barcode;";
             $prep_query = $this->db->connect()->prepare($query);
 
             $prep_query->bindParam(':barcode',$barcode);
@@ -168,7 +190,7 @@
         }
 
     }   
-        $obj = new Book();
+        //$obj = new Book();
      //   echo $obj->is_barcode_unique(1);
       //  echo $obj->not_my_barcode(25,2);
         //var_dump($obj-> get_all(18));
