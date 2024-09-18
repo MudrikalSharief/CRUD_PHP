@@ -98,28 +98,51 @@
 
            
 
-        function get_all_coloumn($keyword='', $genre='',$format='', $age_group=""){//this function will fetch all the coloumn
+        function get_all_coloumn($keyword='', $genre='',$format='', $age_group=''){//this function will fetch all the coloumn
                 //Write a query
+                
                 $array = (isset($age_group)?explode(',',$age_group) : []);
-                $array[0]=(isset($array[0])? $array[0] : "");
-                $array[1]=(isset($array[1])? $array[1] : "");
-                $array[2]=(isset($array[2])? $array[2] : "");
+                
+                //$array[0]=(isset($array[0])? $array[0] : "");
+                //$array[1]=(isset($array[1])? $array[1] : "");
+                //$array[2]=(isset($array[2])? $array[2] : "");
+                $counter = 1;
+                $keyholder=[];
 
+                if($age_group != ""){
+                    foreach($array as $ar){
+                        $tmp = ":arr" . $counter;
+                        $keyholder[] = $tmp;
+                        $counter++;
+                    }
+                }
+
+                $keys = implode( ' "%" ' , $keyholder);
+                
+                //echo $keys, ",,,";
                 $choose = "SELECT * FROM books  WHERE  status = 1
-                                AND (book_title LIKE '%' :keyword '%' OR  book_author LIKE '%' :keyword '%' OR  book_genre LIKE '%' :keyword '%' OR book_publisher LIKE '%' :keyword '%' OR book_format LIKE '%' :keyword '%' OR age_group LIKE '%' :keyword '%' OR book_description LIKE '%' :keyword '%')  
+                                AND (book_title LIKE '%' :keyword '%' OR  book_author )  
                                 AND  (book_genre LIKE '%' :genre '%')
                                 AND  (book_format LIKE '%' :format '%')
-                                AND (age_group LIKE '%' :arr1 '%' :arr2 '%' :arr3 '%')
+                                AND (age_group LIKE '%' $keys '%')
                                 ORDER BY  book_title ASC;";
-
+                //AND (age_group LIKE '%' :arr1 '%' :arr2 '%' :arr3 '%')
                 //prepare the sql 
                 $query = $this->db->connect()->prepare($choose);
                 $query->bindParam(':keyword',$keyword);
                 $query->bindParam(':genre',$genre);
                 $query->bindParam(':format',$format);
-                $query->bindParam(':arr1',$array[0]);
-                $query->bindParam(':arr2',$array[1]);
-                $query->bindParam(':arr3',$array[2]);
+                
+                $counter = 0;
+                foreach($keyholder as $keys){
+                 //   echo $keys, $array[$counter], " /";
+                    $query->bindParam($keys, $array[$counter]);
+                    $counter++;
+                }
+
+                //$query->bindParam(':arr1',$array[0]);
+                //$query->bindParam(':arr2',$array[1]);
+                //$query->bindParam(':arr3',$array[2]);
                 //if the query is executed
                 $data=null;
                 if($query->execute()){

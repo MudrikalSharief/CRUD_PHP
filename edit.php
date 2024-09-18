@@ -240,13 +240,19 @@
 
                                     <div class="flex2">
                                         <input type="checkbox" name="agegroup[]" value="Teens" id="Teens" <?= in_array("Teens", explode(",",$data['age_group'])) ? "checked" : "" ?>>           
-                                        <label for="kids">Teens</label>
+                                        <label for="Teens">Teens</label>
                                     </div>
 
                                     <div class="flex2">
                                         <input type="checkbox" name="agegroup[]" value="Adults" id="Adults" <?= in_array("Adults", explode(",",$data['age_group'])) ? "checked" : "" ?>>           
-                                        <label for="kids">Adults</label>
+                                        <label for="Adults">Adults</label>
                                     </div>
+
+                                    <div class="flex2">
+                                        <input type="checkbox" name="agegroup[]" value="Elderly" id="Elderly" <?= in_array("Elderly", explode(",",$data['age_group'])) ? "checked" : "" ?>>           
+                                        <label for="Elderly">Elderly</label>
+                                    </div>
+                                    
                             </div>
                         </div>
                         
@@ -272,7 +278,7 @@
             <div class="basic_info_holder3  ">
                 <div class="label_input">
                     <label for="description">Description</label>
-                    <textarea name="description" id="description"  placeholder="Describe this book (optional)" value=<?= $data['book_description'] ?>></textarea>
+                    <textarea name="description" id="description"  placeholder="Describe this book (optional)" value=<?= $data['book_description'] ?>> <?= $data['book_description'] ?> </textarea>
                 </div>
             </div>
 

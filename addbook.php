@@ -223,8 +223,13 @@
                                     </div>
 
                                     <div class="flex2">
-                                        <input type="checkbox" name="agegroup[]" value="Adult" id="adult" <?= in_array("Adult", $age_group) ? "checked" : "" ?>>
+                                        <input type="checkbox" name="agegroup[]" value="Adults" id="adult" <?= in_array("Adults", $age_group) ? "checked" : "" ?>>
                                         <label for="Adult">Adult</label>
+                                    </div>
+
+                                    <div class="flex2">
+                                        <input type="checkbox" name="agegroup[]" value="Elderly" id="elderly" <?= in_array("Elderly", $age_group) ? "checked" : "" ?>>
+                                        <label for="Elderly">Elderly</label>
                                     </div>
                             </div>
                         </div>

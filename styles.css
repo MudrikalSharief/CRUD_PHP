@@ -65,13 +65,21 @@ td{
     
 }
 
+.del{
+    background-color: rgb(158, 59, 59);
+    text-align: center;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 10px ;
+    color: white;
+}
+
 button{
-    background-color: var(--fade_blue);
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    color: var(--light_grey);
     font-size: 12px;
 }
 
@@ -83,6 +91,7 @@ button{
     border-radius: 5px;
     font-size: 10px ;
     color: var(--light_grey);
+    
 }
 
 .bg{
